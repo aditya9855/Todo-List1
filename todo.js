@@ -1,25 +1,25 @@
-document.querySelector('#push').onclick = function(){
-    if(document.querySelector('#newtask input').value.length == 0){
-        alert("Kindly Enter Task Name!!!!")
-    }
+const add = document.getElementById("add-task");
+const delet = document.getElementById("del-btn");
+const upDate = document.getElementById("update-task");
+const newTask = document.getElementById("new-tasks");
+const addbtn = document.getElementById("add-btn");
 
-    else{
-        document.querySelector('#tasks').innerHTML += `
-            <div class="task">
-                <span id="taskname">
-                    ${document.querySelector('#newtask input').value}
-                </span>
-                <button class="delete">
-                    <i class="far fa-trash-alt"></i>
-                </button>
-            </div>
-        `;
+const delbtn = document.getElementById("del-task");
+const renamebtn = document.getElementById("rename-task");
 
-        var current_tasks = document.querySelectorAll(".delete");
-        for(var i=0; i<current_tasks.length; i++){
-            current_tasks[i].onclick = function(){
-                this.parentNode.remove();
-            }
-        }
+delet.addEventListener("click", ()=>{
+    add.value = " "
+})
+
+addbtn.addEventListener("click",(e)=>{
+    let todo = add.value
+    todo = todo.trim()
+    if(todo == ""){
+        document.getElementById("alert") = "please add task";
+
+    }else{
+        addTodo(todo)
+        add.value = " "
+        updateTodo()
     }
-}
+})
