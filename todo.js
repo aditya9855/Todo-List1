@@ -1,25 +1,80 @@
-const add = document.getElementById("add-task");
-const delet = document.getElementById("del-btn");
-const upDate = document.getElementById("update-task");
-const newTask = document.getElementById("new-tasks");
-const addbtn = document.getElementById("add-btn");
+const addInput = document.querySelector('#add-task')
 
-const delbtn = document.getElementById("del-task");
-const renamebtn = document.getElementById("rename-task");
+const addBtn =  document.querySelector('#add-btn')
+const delTaskBtn  =  document.querySelector('#del-btn')
 
-delet.addEventListener("click", ()=>{
-    add.value = " "
+const renameBtn = document.querySelector('.rename-task')
+const updateBtn = document.querySelector('.update-task')
+const delBtn = document.querySelector('.del-task')
+
+const newTasks = document.querySelector('.new-tasks')
+
+delTaskBtn.addEventListener('click', () => {
+    addInput.value = ''
 })
 
-addbtn.addEventListener("click",(e)=>{
-    let todo = add.value
-    todo = todo.trim()
-    if(todo == ""){
-        document.getElementById("alert") = "please add task";
 
+addBtn.addEventListener('click', (e)=> {
+    let todo = addInput.value
+    todo = todo.trim()
+    if (todo==''){
+      let alerte =  "please add task";
+        document.getElementById('error') = alerte;
+      
+         
     }else{
+        console.log(todo)
         addTodo(todo)
-        add.value = " "
+        addInput.value = ''
         updateTodo()
     }
 })
+
+
+
+function addTodo(todo){
+    let todoTask  = ` 
+                <div class="task">
+					<input type="text" id="added-task" name='todo' disabled value="${todo}">
+                    <div>
+                        <input type="button" value="✔️" name='update' title='update task' class="update-task">
+                        <input type="button" value="✏️" name='rename' title='rename task' class="rename-task">
+                        <input type="button" value="❌" name='delete' title='delete task' class="del-task">
+                    </div>
+                </div>
+                ` 
+    newTasks.innerHTML += todoTask
+
+}
+
+
+function updateTodo(){
+    
+
+    let task  = document.querySelectorAll('.task')
+
+    task.forEach((t) => {
+        // console.log(t.children)
+        t.addEventListener('click', e =>{
+
+            if(e.target.classList.contains('rename-task')){
+                
+                console.log('rename')
+                if (t.children[0].disabled){
+                    t.children[0].disabled = false
+                }
+            }else if(e.target.classList.contains('del-task')) {
+                t.remove()
+            }
+            
+            else if (e.target.classList.contains('update-task')){
+                console.log(t.children[0].disabled)
+                if (t.children[0].disabled == false){
+                    t.children[0].disabled = true
+                }
+            }
+        })
+
+    })
+    
+}
