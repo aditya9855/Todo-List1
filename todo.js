@@ -54,7 +54,7 @@ function updateTodo(){
     let task  = document.querySelectorAll('.task')
 
     task.forEach((t) => {
-        // console.log(t.children)
+        
         t.addEventListener('click', e =>{
 
             if(e.target.classList.contains('rename-task')){
